@@ -1,8 +1,8 @@
 {
   "name": "miao-cursor-rules",
   "displayName": "喵: 中文 Cursor Rules",
-  "description": "Cursor Rules 模板管理器 | Cursor Rules Template Manager",
-  "version": "1.0.9",
+  "description": "Cursor Rules Template Manager",
+  "version": "1.0.10",
   "publisher": "kelisiWu",
   "author": "kelisiWu",
   "repository": {
@@ -135,7 +135,7 @@
         {
           "id": "cursor-rules-explorer",
           "title": "Cursor Rules",
-          "icon": "resources/dark-icon.png"
+          "icon": "resources/side-icon.svg"
         }
       ]
     },
@@ -143,7 +143,8 @@
       "cursor-rules-explorer": [
         {
           "id": "cursorRulesTemplates",
-          "name": "模板"
+          "name": "模板",
+          "icon": "$(symbol-ruler)"
         }
       ]
     },
@@ -202,7 +203,8 @@
     "compile": "tsc -p ./ && npm run copy-templates",
     "copy-templates": "mkdir -p out/templates/roles && cp -r src/templates/roles/*.json out/templates/roles/",
     "watch": "tsc -watch -p ./",
-    "lint": "eslint src --ext ts"
+    "lint": "eslint src --ext ts",
+    "build": "vsce package"
   },
   "devDependencies": {
     "@types/node": "^16.x.x",

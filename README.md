@@ -120,6 +120,10 @@ This extension contributes the following settings:
 
 ## Release Notes | 发布说明
 
+### 1.0.10
+
+- 把侧边栏的 icon 加上
+
 ### 1.0.9
 
 - 修复应用市场中描述显示乱码问题

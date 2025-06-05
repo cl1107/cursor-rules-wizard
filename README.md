@@ -9,7 +9,7 @@ Cursor Rules Template Manager
 - Apply predefined .cursorrules templates | 应用预定义的 .cursorrules 模板
 - **NEW**: Support for .cursor/rules directory with MDC files | **新功能**：支持 .cursor/rules 目录中的 MDC 文件
 - Save custom .cursorrules templates | 保存自定义的 .cursorrules 模板
-- **NEW**: Save and manage MDC templates | **新功能**：保存和管理 MDC 模板
+- **NEW**: Save and manage MDC templates | **新功能**：保存和删除 MDC 模板
 - Multiple role templates available | 提供多个角色模板
 - Easy to use command palette integration | 易于使用的命令面板集成
 - Template preview | 模板预览功能
@@ -113,12 +113,12 @@ Cursor Rules Template Manager
 
 1. Open the Cursor Rules view in the activity bar | 在活动栏中打开 Cursor Rules 视图
 2. Browse templates by category and type: | 按分类和类型浏览模板：
-   - **Workspace MDC templates (📝)** | **工作区 MDC 模板 (📝)**
    - **User templates (💾)** | **用户模板 (💾)**
    - **Built-in templates (📄)** | **内置模板 (📄)**
 3. Mark templates as favorites | 将模板标记为收藏
-4. Edit user templates | 编辑用户模板
+4. **Enhanced**: Edit user templates with improved MDC support | **增强**：编辑用户模板，改进了 MDC 支持
 5. Import/export templates | 导入/导出模板
+6. **New**Delete template
 
 **Keyboard Shortcut | 键盘快捷键**
 

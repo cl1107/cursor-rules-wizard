@@ -1,6 +1,6 @@
 ## Release Notes | 发布说明
 
-### 1.1.2
+### 1.1.0
 
 **🎉 Major Feature Update: Support for .cursor/rules MDC files | 重大功能更新：支持 .cursor/rules MDC 文件**
 

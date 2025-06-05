@@ -42,7 +42,10 @@ export function registerTemplateCommands(
           try {
             // 根据模板类型决定创建方式
             if (selected.template.type === 'mdc') {
-              await createMdcRuleFile(selected.template.content);
+              await createMdcRuleFile(
+                selected.template.content,
+                selected.template.name
+              );
               vscode.window.showInformationMessage(
                 `成功创建 ${selected.label} MDC 模板`
               );
@@ -431,7 +434,10 @@ export function registerTemplateCommands(
 }
 
 // 新增：创建 MDC 规则文件的辅助函数
-async function createMdcRuleFile(content: string): Promise<void> {
+async function createMdcRuleFile(
+  content: string,
+  templateName: string
+): Promise<void> {
   if (
     !vscode.workspace.workspaceFolders ||
     vscode.workspace.workspaceFolders.length === 0
@@ -451,29 +457,39 @@ async function createMdcRuleFile(content: string): Promise<void> {
     fs.mkdirSync(cursorRulesDir, { recursive: true });
   }
 
-  // 从内容中提取名称作为文件名
-  const lines = content.split('\n');
-  let fileName = 'rule';
+  // 使用模板名称作为默认文件名
+  const fileName =
+    templateName
+      .toLowerCase()
+      .replace(/\s+/g, '-')
+      .replace(/[^a-z0-9-]/g, '') || 'rule';
 
-  for (const line of lines) {
-    const trimmed = line.trim();
-    if (trimmed.startsWith('# ')) {
-      fileName = trimmed
-        .substring(2)
-        .trim()
-        .toLowerCase()
-        .replace(/\s+/g, '-')
-        .replace(/[^a-z0-9-]/g, '');
-      break;
-    }
+  // 让用户确认或修改文件名
+  const userFileName = await vscode.window.showInputBox({
+    prompt: '请输入 MDC 文件名称',
+    placeHolder: '例如：custom-rule（不需要输入 .mdc 扩展名）',
+    value: fileName,
+    validateInput: value => {
+      if (!value) {
+        return '文件名不能为空';
+      }
+      if (!/^[a-z0-9-_]+$/.test(value)) {
+        return '文件名只能包含小写字母、数字、连字符和下划线';
+      }
+      return null;
+    },
+  });
+
+  if (!userFileName) {
+    throw new Error('用户取消了文件名输入');
   }
 
-  const filePath = path.join(cursorRulesDir, `${fileName}.mdc`);
+  const filePath = path.join(cursorRulesDir, `${userFileName}.mdc`);
 
   // 检查文件是否已存在，如果存在则询问是否覆盖
   if (fs.existsSync(filePath)) {
     const overwrite = await vscode.window.showWarningMessage(
-      `文件 ${fileName}.mdc 已存在，是否覆盖？`,
+      `文件 ${userFileName}.mdc 已存在，是否覆盖？`,
       '覆盖',
       '取消'
     );

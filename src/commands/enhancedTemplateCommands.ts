@@ -54,10 +54,13 @@ export function registerEnhancedTemplateCommands(
   // 编辑模板命令
   const editTemplateDisposable = vscode.commands.registerCommand(
     'cursor-rules.editTemplate',
-    async (item: TemplateTreeItem) => {
+    async (item?: TemplateTreeItem | vscode.Uri) => {
       try {
-        if (!item || !item.template) {
-          vscode.window.showErrorMessage('请在模板上右键选择此命令');
+        // 只处理从模板树视图调用的情况
+        if (!item || !('template' in item) || !item.template) {
+          vscode.window.showErrorMessage(
+            '请在模板树视图中选择用户模板进行编辑'
+          );
           return;
         }
 
@@ -72,10 +75,21 @@ export function registerEnhancedTemplateCommands(
           context.globalStorageUri.fsPath,
           'templates'
         );
-        const templatePath = path.join(
-          templateDir,
-          `${item.template.name.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.json`
-        );
+
+        let templatePath: string;
+
+        // 根据模板类型决定文件路径
+        if (item.template.type === 'mdc') {
+          // MDC 模板文件 - 直接使用模板名称作为文件名
+          const fileName = `${item.template.name}.mdc`;
+          templatePath = path.join(templateDir, fileName);
+        } else {
+          // JSON 模板文件
+          templatePath = path.join(
+            templateDir,
+            `${item.template.name.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.json`
+          );
+        }
 
         // 检查文件是否存在
         if (!fs.existsSync(templatePath)) {

@@ -47,11 +47,8 @@ export class TemplateLoader {
 
   // 从文件名生成模板名称
   private static generateTemplateNameFromFile(filename: string): string {
-    const baseName = path.basename(filename, '.mdc');
-    return baseName
-      .split('-')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
+    // 直接返回文件名（去掉扩展名），不进行转换
+    return path.basename(filename, '.mdc');
   }
 
   // 从 .mdc 内容中提取描述

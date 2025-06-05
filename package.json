@@ -2,7 +2,7 @@
   "name": "miao-cursor-rules",
   "displayName": "喵: 中文 Cursor Rules",
   "description": "Cursor Rules Template Manager",
-  "version": "1.1.2",
+  "version": "1.1.6",
   "publisher": "kelisiWu",
   "author": "kelisiWu",
   "repository": {
@@ -127,6 +127,26 @@
         },
         {
           "command": "cursor-rules.deleteTemplate",
+          "when": "false"
+        },
+        {
+          "command": "cursor-rules.saveAsTemplate",
+          "when": "false"
+        },
+        {
+          "command": "cursor-rules.saveAsMdcTemplate",
+          "when": "false"
+        },
+        {
+          "command": "cursor-rules.createFromTemplate",
+          "when": "false"
+        },
+        {
+          "command": "cursor-rules.createNewMdcTemplate",
+          "when": "false"
+        },
+        {
+          "command": "cursor-rules.editTemplate",
           "when": "false"
         }
       ],
